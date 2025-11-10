@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 
 // Similar to JPA Inheritance 'discriminator', need to tell Jackson
 // (our Json processing library) how to tell EntityA from EntityB or C/D/E/F ...
-/* TODO - Add annotation to encode Entities as follows
+/* DONE - Add annotation to encode Entities as follows
      EntityA                          = 'typeA'
      EntityB                          = 'typeB'
      EntityCHasManyDees               = 'typeC'
@@ -32,7 +32,19 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
      EntityEHasMany                   = 'typeE'
      EntityFHasManyToOneBackReference = 'typeF'
 */
-// TODO - Add annotation so that only non-null fields are in JSON body
+// DONE - Add annotation so that only non-null fields are in JSON body
+@JsonTypeInfo (
+	use = JsonTypeInfo.Id.NAME,
+	include = JsonTypeInfo.As.PROPERTY,
+	property = "entity-type")
+@JsonSubTypes({
+	@Type(value = EntityA.class, name = "typeA"),
+	@Type(value = EntityB.class, name = "typeB"),
+	@Type(value = EntityCHasManyDees.class, name = "typeC"),
+	@Type(value = EntityDHasManyCees.class, name = "typeD"),
+	@Type(value = EntityEHasMany.class, name = "typeE"),
+	@Type(value = EntityFHasManyToOneBackReference.class, name = "typeF")
+})
 public abstract class PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -69,7 +81,8 @@ public abstract class PojoBase implements Serializable {
 		this.created = created;
 	}
 
-	// TODO - Add annotation here to change 'foobar' to 'msg' in JSON body
+	// DONE - Add annotation here to change 'foobar' to 'msg' in JSON body
+	@JsonProperty("msg")
 	public String getFoobar() {
 		return foobar;
 	}

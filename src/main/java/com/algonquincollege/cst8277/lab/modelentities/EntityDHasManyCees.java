@@ -16,7 +16,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @SuppressWarnings("unused")
 
-//TODO - Add annotation so that only non-null fields are in JSON body
+//DONE - Add annotation so that only non-null fields are in JSON body
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EntityDHasManyCees extends PojoBase implements Serializable {
     /** explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;
@@ -36,7 +37,8 @@ public class EntityDHasManyCees extends PojoBase implements Serializable {
         this.name = name;
     }
 
-    //TODO - Add annotation to use a custom Serializer for JSON body
+    //DONE - Add annotation to use a custom Serializer for JSON body
+    @JsonSerialize(using = SetOfEntityCeesSerializer.class)
     public Set<EntityCHasManyDees> getCees() {
         return cees;
     }

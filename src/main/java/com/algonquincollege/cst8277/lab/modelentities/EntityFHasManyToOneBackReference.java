@@ -14,7 +14,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @SuppressWarnings("unused")
 
-//TODO - Add annotation so that only non-null fields are in JSON body
+//DONE - Add annotation so that only non-null fields are in JSON body
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EntityFHasManyToOneBackReference extends PojoBase implements Serializable {
     /** explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;
@@ -34,7 +35,8 @@ public class EntityFHasManyToOneBackReference extends PojoBase implements Serial
         this.field1 = field1;
     }
 
-    // TODO - Add annotation to manage ManyToOne back-reference
+    // DONE - Add annotation to manage ManyToOne back-reference
+    @JsonBackReference
     public EntityEHasMany getOwningEntity() {
         return owningEntity;
     }
